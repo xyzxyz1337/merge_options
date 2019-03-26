@@ -1,9 +1,9 @@
-#MERGE_OPTIONS
-
+MERGE_OPTIONS
+=====
 This script merge two files with options in the format: option=value.
 
-##Usage
-
+Usage
+====
 
 		$ python3 merge_option.py prod.txt -c dev.txt 
 
@@ -26,8 +26,9 @@ java.mem=20g
 clustermode=true
 cluster.name=java_cluster
 ```
-###Difference
 
+Difference
+===
 ```
 $ python3 merge_option.py prod.txt -c dev.txt --mode difference
 
@@ -36,8 +37,8 @@ cluster.name=java_cluster
 
 Why java.mem not in output? Because this filed exist in prod file. Difference not overwrite options.
 
-###Concatenate
-
+Concatenate
+===
 ```
 $ python3 merge_option.py prod.txt -c dev.txt --mode concatenate
 
