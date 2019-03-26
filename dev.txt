@@ -1,0 +1,3 @@
+java.mem=20g
+clustermode=true
+cluster.name=java_cluster
