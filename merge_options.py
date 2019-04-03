@@ -7,7 +7,7 @@ def build_dict(file, delimiter, base_d=None, custom_d=None):
     """
     Open the file and parse every string.
     Parsed data insert into one of dictionary,
-    required of base_flag
+    required of transferred args.
     """
     with open(file, "r") as rfile:
         for string in rfile.readlines():
@@ -28,8 +28,8 @@ def build_dict(file, delimiter, base_d=None, custom_d=None):
 
 def difference(base_d, custom_d):
     """
-    Print difference between base file and 
-    custom file. 
+    Print difference between base file and
+    custom file.
     The equivalent fields will be passed.
 
     Be meant the field in prod-file is unique.
@@ -48,8 +48,8 @@ def difference(base_d, custom_d):
 
 def concatenate(base_d, custom_d):
     """
-    print sorted base file + custom file.
-    The equivalent key-option  value takes from custom file.
+    Print sorted base file + custom file.
+    The equivalent key-option value takes from custom file.
     """
     def where_is_dot(string):
         """
