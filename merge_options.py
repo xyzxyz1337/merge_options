@@ -40,7 +40,7 @@ def difference(base_d, custom_d):
 
     for key, value in custom_d.items():
         if key not in base_d:
-            print(key, "=", value, sep="")
+            print key + "=" + value 
 
         # elif value != base_d[key]:
         #     print(key, "=", value, sep="")
@@ -76,7 +76,7 @@ def concatenate(base_d, custom_d):
             option = key[:dot]
             print(head.format(option).upper())
 
-        print(key, "=", value, sep="")
+        print key + "=" + value
 
 
 if __name__ == "__main__":
