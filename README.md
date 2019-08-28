@@ -4,9 +4,9 @@ This script merge two files with options in the format: option=value.
 
 Usage
 ====
-
-		$ python3 merge_option.py prod.txt -c dev.txt 
-
+```
+$ python3 merge_option.py prod.txt -c dev.txt 
+```
 This command take options from prod.txt and print options which not in prod.txt. 
 This is do with *difference mode* by default. 
 
