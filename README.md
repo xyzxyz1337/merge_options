@@ -1,7 +1,9 @@
 MERGE_OPTIONS
 =====
+
 This script merge two files with options in the format: option=value.
-Work with python version 2.
+Work only with python version 2.
+
 Usage
 ====
 ```
