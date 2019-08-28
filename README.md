@@ -1,11 +1,11 @@
 MERGE_OPTIONS
 =====
 This script merge two files with options in the format: option=value.
-
+Work with python version 2.
 Usage
 ====
 ```
-$ python3 merge_option.py prod.txt -c dev.txt 
+$ python merge_option.py prod.txt -c dev.txt 
 ```
 
 This command take options from prod.txt and print options which not in prod.txt. 
