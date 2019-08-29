@@ -1,6 +1,6 @@
-import re
-import os
-import argparse
+from re import findall
+from os import path
+from argparse import ArgumentParser
 
 
 def build_dict(file, base_d=None, custom_d=None):
@@ -13,7 +13,7 @@ def build_dict(file, base_d=None, custom_d=None):
         for string in rfile.readlines():
             if string.startswith("#") or string.startswith(" "):
                 continue
-            matched = re.findall(r"(.+?)\s?{0}\s?(.*)".format(args.delimiter),
+            matched = findall(r"(.+?)\s?{0}\s?(.*)".format(args.delimiter),
                                  string)
 
             for i in matched:
@@ -79,7 +79,7 @@ def concatenate(base_d, custom_d):
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(
+    parser = ArgumentParser(
         description=
         "Script print difference or concatenate between base and custom files, but not overwrite!",
         epilog=
@@ -123,12 +123,12 @@ if __name__ == "__main__":
 """
 
     for b in args.base_files:
-        if not os.path.exists(b):
+        if not path.exists(b):
             raise Exception('Path to file not found ', b)
         build_dict(b, base_d=base)
 
     for c in args.custom:
-        if not os.path.exists(c):
+        if not path.exists(c):
             raise Exception('Path to file not found ', c)
         build_dict(c, custom_d=custom_base)
 
