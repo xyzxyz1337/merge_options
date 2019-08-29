@@ -3,7 +3,7 @@ import os
 import argparse
 
 
-def build_dict(file, delimiter, base_d=None, custom_d=None):
+def build_dict(file, base_d=None, custom_d=None):
     """
     Open the file and parse every string.
     Parsed data insert into one of dictionary,
@@ -11,15 +11,12 @@ def build_dict(file, delimiter, base_d=None, custom_d=None):
     """
     with open(file, "r") as rfile:
         for string in rfile.readlines():
-            if string.startswith("#"):
+            if string.startswith("#") or string.startswith(" "):
                 continue
-            matched = re.findall(
-                r"(.+?)\s?{0}\s?(.*)".format(delimiter), string)
-            for i in matched:
-                i = list(i)  # because i is tuple, immutable
-                i[0] = i[0].strip()
-                i[1] = i[1].strip()
+            matched = re.findall(r"(.+?)\s?{0}\s?(.*)".format(args.delimiter),
+                                 string)
 
+            for i in matched:
                 if custom_d is None:
                     base_d[i[0]] = i[1]
                 else:
@@ -51,6 +48,7 @@ def concatenate(base_d, custom_d):
     Print sorted base file + custom file.
     The equivalent key-option value takes from custom file.
     """
+
     def where_is_dot(string):
         """
         return index of dot
@@ -82,19 +80,34 @@ def concatenate(base_d, custom_d):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
-        description="Script print difference or concatenate between base and custom files, but not overwrite!",
-        epilog="Attention! Mode \"concatenate\" sorts keys, you can lose structure")
-    parser.add_argument("base_files", metavar="BASE FILES", nargs="*",
+        description=
+        "Script print difference or concatenate between base and custom files, but not overwrite!",
+        epilog=
+        "Attention! Mode \"concatenate\" sorts keys, you can lose structure")
+    parser.add_argument("base_files",
+                        metavar="BASE FILES",
+                        nargs="*",
                         help="base files also know `prod-file`")
 
-    parser.add_argument("-c", metavar="CUSTOM FILES", nargs="*",
-                        help="custom files, which need merge", dest="custom")
+    parser.add_argument("-c",
+                        metavar="CUSTOM FILES",
+                        nargs="*",
+                        help="custom files, which need merge",
+                        dest="custom")
 
-    parser.add_argument("--delimiter", metavar="SYMBOL", nargs="?", default="=",
+    parser.add_argument("--delimiter",
+                        metavar="SYMBOL",
+                        nargs="?",
+                        default="=",
                         help="delimiter between option and value")
 
-    parser.add_argument("--mode", metavar="MODE", default="difference", choices=["difference", "concatenate"],
-                        help="exists two mode: difference and changed sum, by default: difference")
+    parser.add_argument(
+        "--mode",
+        metavar="MODE",
+        default="difference",
+        choices=["difference", "concatenate"],
+        help=
+        "exists two mode: difference and changed sum, by default: difference")
     args = parser.parse_args()
 
     if (args.base_files or args.custom) is None:
@@ -111,16 +124,18 @@ if __name__ == "__main__":
 
     for b in args.base_files:
         if not os.path.exists(b):
-            raise Exception('Path not found to file', b)
-        build_dict(b, base_d=base, delimiter=args.delimiter)
+            raise Exception('Path to file not found ', b)
+        build_dict(b, base_d=base)
 
     for c in args.custom:
         if not os.path.exists(c):
-            raise Exception('Path not found to file', c)
-        build_dict(c, custom_d=custom_base, delimiter=args.delimiter)
+            raise Exception('Path to file not found ', c)
+        build_dict(c, custom_d=custom_base)
 
-    assert((len(base) or len(custom_base)) >
-           0), "The program with this options not found elements.\nOptions: {}".format(args)
+    assert (
+        (len(base) or len(custom_base)) > 0
+    ), "The program with this options not found elements.\nOptions: {}".format(
+        args)
 
     if args.mode == "difference":
         difference(base, custom_base)
